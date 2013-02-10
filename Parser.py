@@ -32,6 +32,7 @@ Here, the user changed his nickname from 'Tehnix' to 'BlaBliBlu'.
 """
 
 def tokenize(s):
+    """Tokenize the given IRC output."""
     s = s.split(':')
     if len(s) > 1:
         return s[1:]
@@ -50,32 +51,40 @@ def strippedNickname(s):
         return s
 
 def getHostname(t):
+    """Return the users host from a tokenized list."""
     return t[0].split('!')[1].split('@')[1].split()[0]
 
 def getUser(t):
+    """Return the user from a tokenized list."""
     return t[0].split('!')[1].split('@')[0]
 
 def getChannel(t):
+    """Return the channel from a tokenized list."""
     for item in t[0].split():
         if item.startswith('#'):
             return item
     return None
 
 def getRecipient(t):
+    """Return the recipient from a tokenized list. Only useful with NOTICE and PRIVMSG."""
     return t[0].split()[2]
 
 def getServer(t):
+    """Return the server address from a tokenized list."""
     return t[0].split()[0]
 
 def getAction(t):
+    """Return the action from a tokenized list."""
     return t[0].split()[1]
 
 def isServerMessage(t):
+    """Check if the IRC output is a server message."""
     if '!' not in t[0].split()[0]:
         return True
     return False
         
 def getIRCCode(t):
+    """Return the IRC code from a tokenized list."""
     c = t[0].split()[1]
     try:
         int(c)
@@ -84,6 +93,7 @@ def getIRCCode(t):
     return c
 
 def getMsg(t, code=None, action=None):
+    """Return the message from a tokenized list."""
     if len(t) > 1:
         return ':'.join(t[1:])
     elif code == '333':
@@ -92,7 +102,7 @@ def getMsg(t, code=None, action=None):
         return ' '.join(t[0].split()[3:])
     return None
 
-def parse(s, output='tuple'):
+def _parse(s, output='tuple'):
     """Parse the IRC output. By default, return a tuple. Optionally return a dict or a list."""
     t = tokenize(s)
     code = getIRCCode(t)
@@ -140,3 +150,27 @@ def parse(s, output='tuple'):
             action,
             msg
         )
+
+def parse(s, output='tuple'):
+    """Wrapper for the _parse function to handle IndexError a bit neater."""
+    try:
+        return _parse(s, output=output)
+    except IndexError:
+        if output == 'dict' or output == 'dictionary':
+            return {
+                'server': None,
+                'channel': None,
+                'recipient': None,
+                'user': None,
+                'code': None,
+                'action': None,
+                'msg': None
+            }
+        elif output == 'list':
+            return [None, None, None, None, None, None, None]
+        else:
+            return (None, None, None, None, None, None, None)
+
+if __name__ == '__main__':
+    import sys
+    print parse(' '.join(sys.argv[1:]))

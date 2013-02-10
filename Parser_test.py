@@ -1,7 +1,7 @@
 import unittest
 
 from IRCTestOutput import *
-from ExpectedOutput import *
+from ExpectedTestOutput import *
 from Parser import *
 
 
