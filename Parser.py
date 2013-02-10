@@ -2,12 +2,13 @@
 Parse IRC output.
 
 The main function of this module is the `parse` function. It takes in some
-IRC output, and generates a tuple/dict/list looking like the following:
+IRC output, and generates a tuple/dict/list/object (the kwarg `output` in the `parse` function) looking like the following:
 
 From: :irc.codetalk.io 332 Innocence #lobby :Let's all have great fun! :D
 To: {
     'server': 'irc.codetalk.io',
     'channel': '#lobby',
+    'recipient': None,
     'user': None,
     'code': 332,
     'action': None,
@@ -21,6 +22,7 @@ From: :Tehnix!Tehnix@ghost-EC31B3C1.rdns.scalabledns.com NICK :BlaBliBlu
 To: {
     'server': None,
     'channel': None,
+    'recipient': None,
     'user': ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'),
     'code': None,
     'action': 'NICK',
@@ -102,8 +104,15 @@ def getMsg(t, code=None, action=None):
         return ' '.join(t[0].split()[3:])
     return None
 
+def getOutputObject(d):
+    class ParseOutput: pass
+    parseObj = ParseOutput()
+    for key, val in d.items():
+        setattr(parseObj, key, val)
+    return parseObj
+
 def _parse(s, output='tuple'):
-    """Parse the IRC output. By default, return a tuple. Optionally return a dict or a list."""
+    """Parse the IRC output. By default, return a tuple. Optionally return a dict, list or an object."""
     t = tokenize(s)
     code = getIRCCode(t)
     channel = getChannel(t)
@@ -130,6 +139,16 @@ def _parse(s, output='tuple'):
             'action': action,
             'msg': msg
         }
+    elif output == 'object':
+        return getOutputObject({
+            'server': server,
+            'channel': channel,
+            'recipient': recipient,
+            'user': user,
+            'code': code,
+            'action': action,
+            'msg': msg
+        })
     elif output == 'list':
         return [
             server,
@@ -166,6 +185,16 @@ def parse(s, output='tuple'):
                 'action': None,
                 'msg': None
             }
+        elif output == 'object':
+            return getOutputObject({
+                'server': None,
+                'channel': None,
+                'recipient': None,
+                'user': None,
+                'code': None,
+                'action': None,
+                'msg': None
+            })
         elif output == 'list':
             return [None, None, None, None, None, None, None]
         else:

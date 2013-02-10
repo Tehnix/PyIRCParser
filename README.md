@@ -3,7 +3,7 @@
 Parses IRC output and returns a structured tuple/dict/list that's easier to use.
 
 The main function of this module is the `parse` function. It takes in some
-IRC output, and generates a tuple/dict/list looking like the following:
+IRC output, and generates a tuple/dict/list/object (the kwarg `output` in the `parse` function) looking like the following:
 
 From: `:irc.codetalk.io 332 Innocence #lobby :Let's all have great fun! :D`
 To: 
