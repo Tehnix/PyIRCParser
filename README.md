@@ -10,6 +10,7 @@ To:
 <pre>{
     'server': 'irc.codetalk.io',
     'channel': '#lobby',
+    'recipient': None,
     'user': None,
     'code': 332,
     'action': None,
@@ -24,6 +25,7 @@ To:
 <pre>{
     'server': None,
     'channel': None,
+    'recipient': None,
     'user': ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'),
     'code': None,
     'action': 'NICK',
