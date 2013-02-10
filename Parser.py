@@ -3,7 +3,9 @@ Parse IRC output.
 
 The main function of this module is the `parse` function. It takes in some
 IRC output, and generates a tuple/dict/list looking like the following:
-{
+
+From: :irc.codetalk.io 332 Innocence #lobby :Let's all have great fun! :D
+To: {
     'server': 'irc.codetalk.io',
     'channel': '#lobby',
     'user': None,
@@ -15,9 +17,10 @@ IRC output, and generates a tuple/dict/list looking like the following:
 This will indicate that a topic has been found for a channel. An example of 
 a user action would be:
 
-{
+From: :Tehnix!Tehnix@ghost-EC31B3C1.rdns.scalabledns.com NICK :BlaBliBlu
+To: {
     'server': None,
-    'channel': '#lobby',
+    'channel': None,
     'user': ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'),
     'code': None,
     'action': 'NICK',
@@ -58,6 +61,9 @@ def getChannel(t):
             return item
     return None
 
+def getRecipient(t):
+    return t[0].split()[2]
+
 def getServer(t):
     return t[0].split()[0]
 
@@ -80,6 +86,10 @@ def getIRCCode(t):
 def getMsg(t, code=None, action=None):
     if len(t) > 1:
         return ':'.join(t[1:])
+    elif code == '333':
+        return ' '.join(t[0].split()[4:])
+    elif action == 'MODE':
+        return ' '.join(t[0].split()[3:])
     return None
 
 def parse(s, output='tuple'):
@@ -95,11 +105,16 @@ def parse(s, output='tuple'):
         server = None
         user = (strippedNickname(getNickname(t)), getUser(t), getHostname(t))
         action = getAction(t)
+    if not isServerMessage(t) and action in ['NOTICE', 'PRIVMSG']:
+        recipient = getRecipient(t)
+    else:
+        recipient = None
     msg = getMsg(t, code=code, action=action)
     if output == 'dict' or output == 'dictionary':
         return {
             'server': server,
             'channel': channel,
+            'recipient': recipient,
             'user': user,
             'code': code,
             'action': action,
@@ -109,6 +124,7 @@ def parse(s, output='tuple'):
         return [
             server,
             channel,
+            recipient,
             user,
             code,
             action,
@@ -118,6 +134,7 @@ def parse(s, output='tuple'):
         return (
             server,
             channel,
+            recipient,
             user,
             code,
             action,

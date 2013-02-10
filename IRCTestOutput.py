@@ -22,7 +22,7 @@ SERVER_CODE_ACTIONS = {
     "265": ":irc.codetalk.io 265 Innocence 11 13 :Current local users 11, max 13",
     "266": ":irc.codetalk.io 266 Innocence 26 28 :Current global users 26, max 28",
     "375": ":irc.codetalk.io 375 Innocence :- irc.codetalk.io Message of the Day -",
-    "372": ":irc.codetalk.io 372 Innocence :- 13/1/2013 18:10\r\n:irc.codetalk.io 372 Innocence :- Hi there\r\n:irc.codetalk.io 372 Innocence :- Goodbye again!",
+    "372": ":irc.codetalk.io 372 Innocence :- 13/1/2013 18:10",
     "376": ":irc.codetalk.io 376 Innocence :End of /MOTD command.",
     "332": ":irc.codetalk.io 332 Innocence #lobby :Let's all have great fun! :D", # Channel Topic
     "333": ":irc.codetalk.io 333 Innocence #lobby Tehnix 1360381672", # Who set the topic and unix timestamp on when
