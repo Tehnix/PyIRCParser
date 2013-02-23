@@ -1,8 +1,8 @@
 import unittest
 
-from IRCTestOutput import *
-from ExpectedTestOutput import *
-from Parser import *
+from test.data import *
+from test.output import *
+from ircparser import *
 
 
 class ParserTest(unittest.TestCase):
