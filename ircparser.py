@@ -202,4 +202,4 @@ def parse(s, output='tuple'):
 
 if __name__ == '__main__':
     import sys
-    print parse(' '.join(sys.argv[1:]), output='dict')
+    print(parse(' '.join(sys.argv[1:]), output='dict')) # read as a tuple in 2.x and uses the print function in 3.x
