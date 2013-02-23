@@ -4,9 +4,7 @@ EXPECTED_SERVER_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'ACTION', # type
-        None, # code
-        'PING', # action
+        'PING', # type
         'irc.codetalk.io' # msg
     )
 }
@@ -17,9 +15,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '001', # code
-        None, # action
+        '001', # type
         'Welcome to the codetalk IRC Network Innocence!Motoko@82.211.197.12' # msg
     ),
     '002': (
@@ -27,9 +23,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '002', # code
-        None, # action
+        '002', # type
         'Your host is irc.codetalk.io, running version Unreal3.2.10' # msg
     ),
     '003': (
@@ -37,9 +31,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '003', # code
-        None, # action
+        '003', # type
         'This server was created Sun Jan 13 2013 at 01:16:15 MSK' # msg
     ),
     '252': (
@@ -47,9 +39,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '252', # code
-        None, # action
+        '252', # type
         'operator(s) online' # msg
     ),
     '332': (
@@ -57,9 +47,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '332', # code
-        None, # action
+        '332', # type
         'Let\'s all have great fun! :D' # msg
     ),
     '333': (
@@ -67,9 +55,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '333', # code
-        None, # action
+        '333', # type
         'Tehnix 1360381672' # msg
     ),
     '353': (
@@ -77,9 +63,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '353', # code
-        None, # action
+        '353', # type
         'Innocence ~Tehnix Systemic33 Pandaen Foxboron Aurelio MrJenkins martinjlowm ljos Cam @nRage &Prometheus' # msg
     ),
     '372': (
@@ -87,9 +71,7 @@ EXPECTED_SERVER_CODE_ACTIONS = {
         None, # channel
         None, # recipient
         None, # user
-        'CODE', # type
-        '372', # code
-        None, # action
+        '372', # type
         '- 13/1/2013 18:10' # msg
     )
 }
@@ -100,9 +82,7 @@ EXPECTED_USER_ACTIONS = {
         None, # channel
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'NICK', # action
+        'NICK', # type
         'BlaBliBlu' # msg
     ),
     'TOPIC': (
@@ -110,9 +90,7 @@ EXPECTED_USER_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'TOPIC', # action
+        'TOPIC', # type
         'Let\'s all have great fun! :D' # msg
     ),
     'PART': (
@@ -120,9 +98,7 @@ EXPECTED_USER_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'PART', # action
+        'PART', # type
         None # msg
     ),
     'JOIN': (
@@ -130,9 +106,7 @@ EXPECTED_USER_ACTIONS = {
         None, # channel
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'JOIN', # action
+        'JOIN', # type
         '#lobby' # msg
     ),
     'MODE': (
@@ -140,9 +114,7 @@ EXPECTED_USER_ACTIONS = {
         '#lobby', # channel
         None, # recipient
         ('Prometheus', 'Ghost', 'bot.ohmagosh.com'), # user
-        'ACTION', # type
-        None, # code
-        'MODE', # action
+        'MODE', # type
         '+qo Tehnix Tehnix' # msg
     ),
     'CHAN_PRIVMSG': (
@@ -150,9 +122,7 @@ EXPECTED_USER_ACTIONS = {
         '#lobby', # channel
         '#lobby', # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'PRIVMSG', # action
+        'PRIVMSG', # type
         'there, fixed -.-' # msg
     ),
     'USER_PRIVMSG': (
@@ -160,9 +130,7 @@ EXPECTED_USER_ACTIONS = {
         None, # channel
         'Innocence', # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'PRIVMSG', # action
+        'PRIVMSG', # type
         'hey!' # msg
     ),
     'CHAN_NOTICE': (
@@ -170,9 +138,7 @@ EXPECTED_USER_ACTIONS = {
         '#lobby', # channel
         '#lobby', # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'NOTICE', # action
+        'NOTICE', # type
         'sup?' # msg
     ),
     'USER_NOTICE': (
@@ -180,9 +146,7 @@ EXPECTED_USER_ACTIONS = {
         None, # channel
         'Innocence', # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
-        'ACTION', # type
-        None, # code
-        'NOTICE', # action
+        'NOTICE', # type
         'hey!' # msg
     )
 }

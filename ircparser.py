@@ -115,14 +115,12 @@ def _parse(s, output='tuple'):
     """Parse the IRC output. By default, return a tuple. Optionally return a dict, list or an object."""
     t = tokenize(s)
     if s.startswith('PING'):
-        action = 'PING'
         msg = t[0]
         server = None
-        code = None
         user = None
         recipient = None
         channel = None
-        actionType = 'ACTION'
+        action = 'PING'
     else:
         code = getIRCCode(t)
         channel = getChannel(t)
@@ -138,12 +136,6 @@ def _parse(s, output='tuple'):
             recipient = getRecipient(t)
         else:
             recipient = None
-        if code is not None:
-            actionType = 'CODE'
-        elif action is not None:
-            actionType = 'ACTION'
-        else:
-            actionType = None
         msg = getMsg(t, code=code, action=action)
     if output == 'dict' or output == 'dictionary':
         return {
@@ -151,9 +143,7 @@ def _parse(s, output='tuple'):
             'channel': channel,
             'recipient': recipient,
             'user': user,
-            'type': actionType,
-            'code': code,
-            'action': action,
+            'type': action or code,
             'msg': msg
         }
     elif output == 'object':
@@ -162,9 +152,7 @@ def _parse(s, output='tuple'):
             'channel': channel,
             'recipient': recipient,
             'user': user,
-            'type': actionType,
-            'code': code,
-            'action': action,
+            'type': action or code,
             'msg': msg
         })
     elif output == 'list':
@@ -173,9 +161,7 @@ def _parse(s, output='tuple'):
             channel,
             recipient,
             user,
-            actionType,
-            code,
-            action,
+            action or code,
             msg
         ]
     else:
@@ -184,9 +170,7 @@ def _parse(s, output='tuple'):
             channel,
             recipient,
             user,
-            actionType,
-            code,
-            action,
+            action or code,
             msg
         )
 
@@ -203,8 +187,6 @@ def parse(s, output='tuple'):
                 'recipient': None,
                 'user': None,
                 'type': None,
-                'code': None,
-                'action': None,
                 'msg': None
             }
         elif output == 'object':
@@ -214,14 +196,12 @@ def parse(s, output='tuple'):
                 'recipient': None,
                 'user': None,
                 'type': None,
-                'code': None,
-                'action': None,
                 'msg': None
             })
         elif output == 'list':
-            return [None, None, None, None, None, None, None, None]
+            return [None, None, None, None, None, None]
         else:
-            return (None, None, None, None, None, None, None, None)
+            return (None, None, None, None, None, None)
 
 if __name__ == '__main__':
     import sys
