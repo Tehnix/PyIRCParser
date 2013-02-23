@@ -12,9 +12,7 @@ To:
     'channel': '#lobby',
     'recipient': None,
     'user': None,
-    'type': 'CODE',
-    'code': 332,
-    'action': None,
+    'type': '332',
     'msg': 'Let us all have great fun! :D'
 }</pre>
 
@@ -28,9 +26,7 @@ To:
     'channel': None,
     'recipient': None,
     'user': ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'),
-    'type': 'ACTION',
-    'code': None,
-    'action': 'NICK',
+    'type': 'NICK',
     'msg': 'BlaBliBlu'
 }</pre>
 
@@ -43,9 +39,7 @@ To:
     'channel': None,
     'recipient': None,
     'user': None,
-    'type': 'ACTION',
-    'code': None,
-    'action': 'PING',
+    'type': 'PING',
     'msg': 'D2FB5C1B'
 }</pre>
 
