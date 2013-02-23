@@ -122,8 +122,6 @@ def _parse(s, output='tuple'):
         channel = None
         action = 'PING'
     else:
-        code = getIRCCode(t)
-        channel = getChannel(t)
         if isServerMessage(t):
             server = getServer(t)
             user = None
@@ -132,11 +130,17 @@ def _parse(s, output='tuple'):
             server = None
             user = (strippedNickname(getNickname(t)), getUser(t), getHostname(t))
             action = getAction(t)
-        if not isServerMessage(t) and action in ['NOTICE', 'PRIVMSG']:
+        if action in ['NOTICE', 'PRIVMSG'] and not isServerMessage(t):
             recipient = getRecipient(t)
         else:
             recipient = None
+        code = getIRCCode(t)
+        channel = getChannel(t)
         msg = getMsg(t, code=code, action=action)
+        if action == 'PART':
+            msg = channel
+        if action == 'JOIN':
+            channel = getMsg(t, code=code, action=action)
     if output == 'dict' or output == 'dictionary':
         return {
             'server': server,

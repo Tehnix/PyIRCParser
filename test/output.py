@@ -99,11 +99,11 @@ EXPECTED_USER_ACTIONS = {
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
         'PART', # type
-        None # msg
+        '#lobby' # msg
     ),
     'JOIN': (
         None, # server
-        None, # channel
+        '#lobby', # channel
         None, # recipient
         ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'), # user
         'JOIN', # type
