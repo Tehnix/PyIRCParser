@@ -114,21 +114,30 @@ def getOutputObject(d):
 def _parse(s, output='tuple'):
     """Parse the IRC output. By default, return a tuple. Optionally return a dict, list or an object."""
     t = tokenize(s)
-    code = getIRCCode(t)
-    channel = getChannel(t)
-    if isServerMessage(t):
-        server = getServer(t)
-        user = None
-        action = None
-    else:
+    if t[0].startswith('PING'):
+        action = 'PING'
+        msg = t[1]
         server = None
-        user = (strippedNickname(getNickname(t)), getUser(t), getHostname(t))
-        action = getAction(t)
-    if not isServerMessage(t) and action in ['NOTICE', 'PRIVMSG']:
-        recipient = getRecipient(t)
-    else:
+        code = None
+        user = None
         recipient = None
-    msg = getMsg(t, code=code, action=action)
+        channel = None
+    else:
+        code = getIRCCode(t)
+        channel = getChannel(t)
+        if isServerMessage(t):
+            server = getServer(t)
+            user = None
+            action = None
+        else:
+            server = None
+            user = (strippedNickname(getNickname(t)), getUser(t), getHostname(t))
+            action = getAction(t)
+        if not isServerMessage(t) and action in ['NOTICE', 'PRIVMSG']:
+            recipient = getRecipient(t)
+        else:
+            recipient = None
+        msg = getMsg(t, code=code, action=action)
     if output == 'dict' or output == 'dictionary':
         return {
             'server': server,
@@ -202,4 +211,4 @@ def parse(s, output='tuple'):
 
 if __name__ == '__main__':
     import sys
-    print(parse(' '.join(sys.argv[1:]), output='dict')) # read as a tuple in 2.x and uses the print function in 3.x
+    print(_parse(' '.join(sys.argv[1:]), output='dict')) # read as a tuple in 2.x and uses the print function in 3.x
