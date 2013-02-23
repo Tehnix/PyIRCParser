@@ -114,14 +114,15 @@ def getOutputObject(d):
 def _parse(s, output='tuple'):
     """Parse the IRC output. By default, return a tuple. Optionally return a dict, list or an object."""
     t = tokenize(s)
-    if t[0].startswith('PING'):
+    if s.startswith('PING'):
         action = 'PING'
-        msg = t[1]
+        msg = t[0]
         server = None
         code = None
         user = None
         recipient = None
         channel = None
+        actionType = 'ACTION'
     else:
         code = getIRCCode(t)
         channel = getChannel(t)
@@ -137,6 +138,12 @@ def _parse(s, output='tuple'):
             recipient = getRecipient(t)
         else:
             recipient = None
+        if code is not None:
+            actionType = 'CODE'
+        elif action is not None:
+            actionType = 'ACTION'
+        else:
+            actionType = None
         msg = getMsg(t, code=code, action=action)
     if output == 'dict' or output == 'dictionary':
         return {
@@ -144,6 +151,7 @@ def _parse(s, output='tuple'):
             'channel': channel,
             'recipient': recipient,
             'user': user,
+            'type': actionType,
             'code': code,
             'action': action,
             'msg': msg
@@ -154,6 +162,7 @@ def _parse(s, output='tuple'):
             'channel': channel,
             'recipient': recipient,
             'user': user,
+            'type': actionType,
             'code': code,
             'action': action,
             'msg': msg
@@ -164,6 +173,7 @@ def _parse(s, output='tuple'):
             channel,
             recipient,
             user,
+            actionType,
             code,
             action,
             msg
@@ -174,6 +184,7 @@ def _parse(s, output='tuple'):
             channel,
             recipient,
             user,
+            actionType,
             code,
             action,
             msg
@@ -181,6 +192,7 @@ def _parse(s, output='tuple'):
 
 def parse(s, output='tuple'):
     """Wrapper for the _parse function to handle IndexError a bit neater."""
+    return _parse(s, output=output)
     try:
         return _parse(s, output=output)
     except IndexError:
@@ -190,6 +202,7 @@ def parse(s, output='tuple'):
                 'channel': None,
                 'recipient': None,
                 'user': None,
+                'type': None,
                 'code': None,
                 'action': None,
                 'msg': None
@@ -200,14 +213,15 @@ def parse(s, output='tuple'):
                 'channel': None,
                 'recipient': None,
                 'user': None,
+                'type': None,
                 'code': None,
                 'action': None,
                 'msg': None
             })
         elif output == 'list':
-            return [None, None, None, None, None, None, None]
+            return [None, None, None, None, None, None, None, None]
         else:
-            return (None, None, None, None, None, None, None)
+            return (None, None, None, None, None, None, None, None)
 
 if __name__ == '__main__':
     import sys

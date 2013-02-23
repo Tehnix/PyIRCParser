@@ -11,6 +11,10 @@ class ParserTest(unittest.TestCase):
     def test_parsing_gives_expected_output_on_server_codes(self):
         for key, expected in EXPECTED_SERVER_CODE_ACTIONS.items():
             self.assertEqual(parse(SERVER_CODE_ACTIONS[key]), expected)
+    
+    def test_parsing_gives_expected_output_on_server_actions(self):
+        for key, expected in EXPECTED_SERVER_ACTIONS.items():
+            self.assertEqual(parse(SERVER_ACTIONS[key]), expected)
             
     def test_parsing_gives_expected_output_on_user_actions(self):     
         for key, expected in EXPECTED_USER_ACTIONS.items():
