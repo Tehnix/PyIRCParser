@@ -10,8 +10,7 @@ To: {
     'channel': '#lobby',
     'recipient': None,
     'user': None,
-    'code': 332,
-    'action': None,
+    'type': '332',
     'msg': 'Let us all have great fun! :D'
 }
     
@@ -24,8 +23,7 @@ To: {
     'channel': None,
     'recipient': None,
     'user': ('Tehnix', 'Tehnix', 'ghost-EC31B3C1.rdns.scalabledns.com'),
-    'code': None,
-    'action': 'NICK',
+    'type': 'NICK',
     'msg': 'BlaBliBlu'
 }
 
@@ -51,7 +49,6 @@ class ParseOutput:
             self.msg == other.msg
         )
         
-
 
 def tokenize(s):
     """Tokenize the given IRC output."""
