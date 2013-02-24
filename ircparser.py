@@ -33,6 +33,26 @@ Here, the user changed his nickname from 'Tehnix' to 'BlaBliBlu'.
 
 """
 
+class ParseOutput:
+    def __init__(self):
+        self.server = None
+        self.channel = None
+        self.recipient = None
+        self.user = None
+        self.type = None
+        self.msg = None
+    
+    def __eq__(self, other):
+        return (self.server == other.server and 
+            self.channel == other.channel and 
+            self.recipient == other.recipient and 
+            self.user == other.user and 
+            self.type == other.type and 
+            self.msg == other.msg
+        )
+        
+
+
 def tokenize(s):
     """Tokenize the given IRC output."""
     s = s.split(':')
@@ -105,7 +125,6 @@ def getMsg(t, code=None, action=None):
     return None
 
 def getOutputObject(d):
-    class ParseOutput: pass
     parseObj = ParseOutput()
     for key, val in d.items():
         setattr(parseObj, key, val)
@@ -180,7 +199,6 @@ def _parse(s, output='tuple'):
 
 def parse(s, output='tuple'):
     """Wrapper for the _parse function to handle IndexError a bit neater."""
-    return _parse(s, output=output)
     try:
         return _parse(s, output=output)
     except IndexError:
@@ -207,6 +225,9 @@ def parse(s, output='tuple'):
         else:
             return (None, None, None, None, None, None)
 
-if __name__ == '__main__':
+def main():
     import sys
     print(_parse(' '.join(sys.argv[1:]), output='dict')) # read as a tuple in 2.x and uses the print function in 3.x
+
+if __name__ == '__main__':
+    main()
